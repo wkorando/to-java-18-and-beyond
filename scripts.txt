@@ -1,0 +1,27 @@
+--- Nebraska Code ---
+
+CDS:
+
+
+java -XX:ArchiveClassesAtExit=petclinic-dynamic-archive.jsa -jar target/spring-petclinic-2.4.5.jar
+
+
+java -XX:SharedArchiveFile=petclinic-dynamic-archive.jsa  -jar target/spring-petclinic-2.4.5.jar
+
+
+Performance comparison:
+
+Base:
+java -jar target/spring-petclinic-2.4.5.jar
+
+
+java -jar target/spring-petclinic-2.4.5.jar
+
+top -pid $( pgrep -d ' ' -f java )
+
+With JFR:
+java -XX:+UnlockCommercialFeatures -XX:StartFlightRecording=filename=recording-java8-nbrc.jfr,settings=profile,dumponexit=true -jar target/spring-petclinic-2.4.5.jar
+
+
+java -XX:StartFlightRecording=filename=recording-java17-nbrc.jfr,settings=profile,dumponexit=true -jar target/spring-petclinic-2.4.5.jar
+
